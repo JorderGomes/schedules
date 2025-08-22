@@ -26,6 +26,15 @@ public class CalendarSlot {
 	
 	private int durationMinutes;
 	
+	
+	
+	public CalendarSlot(UUID id, LocalDateTime start, int durationMinutes) {
+		super();
+		this.id = id;
+		this.start = start;
+		this.durationMinutes = durationMinutes;
+	}
+
 	public LocalDateTime getEnd() {
 		return this.start.plusMinutes((long) durationMinutes);
 	}
