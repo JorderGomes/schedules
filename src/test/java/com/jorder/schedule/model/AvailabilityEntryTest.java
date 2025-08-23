@@ -1,6 +1,6 @@
 package com.jorder.schedule.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
@@ -40,5 +40,28 @@ class AvailabilityEntryTest {
 
 		assertFalse(isAvailable);
 	}
+	
+	@Test
+	@DisplayName("Should return true when a slot is available and there are no conflicts with already scheduled events.")
+	void  isSlotAvailableWithEvents() {
+		fail();
+	}
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

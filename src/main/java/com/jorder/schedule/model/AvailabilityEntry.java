@@ -1,5 +1,6 @@
 package com.jorder.schedule.model;
 
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.AttributeOverride;
@@ -56,6 +57,10 @@ public class AvailabilityEntry {
 			return true;
 		}
 		
+		return false;
+	}
+	
+	public boolean isSlotAvailableWithEvents(CalendarSlot slot, List<CalendarEvent> events ) {
 		return false;
 	}
 	
