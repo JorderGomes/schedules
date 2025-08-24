@@ -1,5 +1,6 @@
 package com.jorder.schedule.model;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,8 +61,31 @@ public class AvailabilityEntry {
 		return false;
 	}
 	
+	public boolean isBetween(LocalTime targetTime, LocalTime startTime, LocalTime  endTime) {
+		boolean isAfterOrEqualStart = !targetTime.isBefore(startTime);
+        boolean isBeforeOrEqualEnd = !targetTime.isAfter(endTime);
+
+        
+        return isAfterOrEqualStart && isBeforeOrEqualEnd;
+	}
+	
 	public boolean isSlotAvailableWithEvents(CalendarSlot slot, List<CalendarEvent> events ) {
-		return false;
+		
+		if (!isSlotAvailable(slot)) {
+			return false;
+		}
+		
+		for (CalendarEvent event: events) {
+			if (
+					(isBetween(slot.getStart().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					||
+					(isBetween(slot.getEnd().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 }
