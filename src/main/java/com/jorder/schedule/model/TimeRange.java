@@ -29,4 +29,30 @@ public class TimeRange {
 	})
 	private Time end;
 	
+	
+
+	public TimeRange(Time start, Time end) {
+		super();
+		this.start = start;
+		this.end = end;
+	}
+
+	public Time getStart() {
+		return start;
+	}
+
+	public void setStart(Time start) {
+		this.start = start;
+	}
+
+	public Time getEnd() {
+		return end;
+	}
+
+	public void setEnd(Time end) {
+		this.end = end;
+	}
+	
+	
+	
 }

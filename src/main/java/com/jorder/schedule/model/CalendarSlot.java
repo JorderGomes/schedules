@@ -8,7 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @AllArgsConstructor
@@ -20,8 +22,56 @@ public class CalendarSlot {
 	@GeneratedValue
 	private UUID id;
 	
-	private LocalDateTime start;
+	private LocalDateTime slotStart;
+	
+	private LocalDateTime slotEnd;
 	
 	private int durationMinutes;
+	
+	
+	
+	public CalendarSlot(UUID id, LocalDateTime start, int durationMinutes) {
+		super();
+		this.id = id;
+		this.slotStart = start;
+		this.slotEnd = start.plusMinutes((long) durationMinutes);
+		this.durationMinutes = durationMinutes;
+	}
+
+	
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getSlotStart() {
+		return slotStart;
+	}
+
+	public void setSlotStart(LocalDateTime slotStart) {
+		this.slotStart = slotStart;
+	}
+
+	public LocalDateTime getSlotEnd() {
+		return slotEnd;
+	}
+
+	public void setSlotEnd(LocalDateTime slotEnd) {
+		this.slotEnd = slotEnd;
+	}
+
+	public int getDurationMinutes() {
+		return durationMinutes;
+	}
+
+	public void setDurationMinutes(int durationMinutes) {
+		this.durationMinutes = durationMinutes;
+	}
+	
+	
 	
 }
