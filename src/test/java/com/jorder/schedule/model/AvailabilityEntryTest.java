@@ -102,6 +102,26 @@ class AvailabilityEntryTest {
 		
 		assertFalse(result);
 	}
+	
+	@Test
+	@DisplayName("Should return false when a slot ends during an already scheduled event.")
+	void isSlotAvailableWithEvents_WhenEndsDuringEvent() {
+		AvailabilityEntry availabilityEntry = new AvailabilityEntry(UUID.randomUUID(), Weekday.MONDAY, 13, 0, 18, 0);
+
+		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 16, 30), 60);
+		
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		
+		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+		
+		events.add(event1);
+		events.add(event2);
+		
+		boolean result = availabilityEntry.isSlotAvailableWithEvents(slot, events);
+		
+		assertFalse(result);
+	}
 
 }
 
