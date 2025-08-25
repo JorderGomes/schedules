@@ -22,9 +22,9 @@ public class CalendarSlot {
 	@GeneratedValue
 	private UUID id;
 	
-	private LocalDateTime start;
+	private LocalDateTime slotStart;
 	
-	private LocalDateTime end;
+	private LocalDateTime slotEnd;
 	
 	private int durationMinutes;
 	
@@ -33,8 +33,8 @@ public class CalendarSlot {
 	public CalendarSlot(UUID id, LocalDateTime start, int durationMinutes) {
 		super();
 		this.id = id;
-		this.start = start;
-		this.end = start.plusMinutes((long) durationMinutes);
+		this.slotStart = start;
+		this.slotEnd = start.plusMinutes((long) durationMinutes);
 		this.durationMinutes = durationMinutes;
 	}
 
@@ -48,21 +48,20 @@ public class CalendarSlot {
 		this.id = id;
 	}
 
-	public LocalDateTime getStart() {
-		return start;
+	public LocalDateTime getSlotStart() {
+		return slotStart;
 	}
 
-	public void setStart(LocalDateTime start) {
-		this.start = start;
-	}
-	
-	
-	public LocalDateTime getEnd() {
-		return end;
+	public void setSlotStart(LocalDateTime slotStart) {
+		this.slotStart = slotStart;
 	}
 
-	public void setEnd(LocalDateTime end) {
-		this.end = end;
+	public LocalDateTime getSlotEnd() {
+		return slotEnd;
+	}
+
+	public void setSlotEnd(LocalDateTime slotEnd) {
+		this.slotEnd = slotEnd;
 	}
 
 	public int getDurationMinutes() {
