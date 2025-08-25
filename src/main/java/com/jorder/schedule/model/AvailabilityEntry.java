@@ -48,8 +48,8 @@ public class AvailabilityEntry {
 
 
 	public boolean isSlotAvailable(CalendarSlot slot) {
-		int slotStartTime = (slot.getStart().getHour() * 60) + slot.getStart().getMinute();
-		int slotEndTime = (slot.getEnd().getHour() * 60) + slot.getEnd().getMinute();
+		int slotStartTime = (slot.getSlotStart().getHour() * 60) + slot.getSlotStart().getMinute();
+		int slotEndTime = (slot.getSlotEnd().getHour() * 60) + slot.getSlotEnd().getMinute();
 		
 		int rangeStartTime = range.getStart().getTimeInMinutes();
 		int rangeEndTime = range.getEnd().getTimeInMinutes();
@@ -62,8 +62,8 @@ public class AvailabilityEntry {
 	}
 	
 	public boolean isBetween(LocalTime targetTime, LocalTime startTime, LocalTime  endTime) {
-		boolean isAfterOrEqualStart = !targetTime.isBefore(startTime);
-        boolean isBeforeOrEqualEnd = !targetTime.isAfter(endTime);
+		boolean isAfterOrEqualStart = targetTime.isAfter(startTime); 
+        boolean isBeforeOrEqualEnd =  targetTime.isBefore(endTime); 
 
         
         return isAfterOrEqualStart && isBeforeOrEqualEnd;
@@ -77,9 +77,9 @@ public class AvailabilityEntry {
 		
 		for (CalendarEvent event: events) {
 			if (
-					(isBetween(slot.getStart().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					(isBetween(slot.getSlotStart().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
 					||
-					(isBetween(slot.getEnd().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					(isBetween(slot.getSlotEnd().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
 					) {
 				return false;
 			}
