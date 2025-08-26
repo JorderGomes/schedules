@@ -50,8 +50,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 13, 0), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -70,8 +70,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 14, 0), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -90,8 +90,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 14, 30), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -110,8 +110,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 16, 30), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
