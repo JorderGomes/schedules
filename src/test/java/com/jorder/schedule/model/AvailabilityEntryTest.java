@@ -50,8 +50,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 13, 0), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -70,8 +70,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 14, 0), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -90,8 +90,8 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 14, 30), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -110,8 +110,88 @@ class AvailabilityEntryTest {
 
 		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 16, 30), 60);
 		
-		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0));
-		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0));
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 0), LocalDateTime.of(2025, 8, 18, 15, 0), null);
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 0), LocalDateTime.of(2025, 8, 18, 18, 0), null);
+		
+		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+		
+		events.add(event1);
+		events.add(event2);
+		
+		boolean result = availabilityEntry.isSlotAvailableWithEvents(slot, events);
+		
+		assertFalse(result);
+	}
+	
+	@Test
+	@DisplayName("Should return true when a slot is available and there are no conflicts with already scheduled events, with buffer.")
+	void  isSlotAvailableWithEventsAndBuffer() {
+		AvailabilityEntry availabilityEntry = new AvailabilityEntry(UUID.randomUUID(), Weekday.MONDAY, 13, 0, 18, 0);
+
+		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 13, 0), 60);
+		
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 10), LocalDateTime.of(2025, 8, 18, 14, 50), new Buffer(10, 10));
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 10), LocalDateTime.of(2025, 8, 18, 17, 50), new Buffer(10, 10));
+		
+		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+		
+		events.add(event1);
+		events.add(event2);
+		
+		boolean result = availabilityEntry.isSlotAvailableWithEvents(slot, events);
+		
+		assertTrue(result);
+	}
+	
+	@Test
+	@DisplayName("Should return false when a slot completely overlaps an already scheduled event, with buffer.")
+	void isSlotAvailableWithEvents_WhenOverlapsEntirelyWithBuffer() {
+		AvailabilityEntry availabilityEntry = new AvailabilityEntry(UUID.randomUUID(), Weekday.MONDAY, 13, 0, 18, 0);
+
+		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 14, 0), 60);
+		
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 10), LocalDateTime.of(2025, 8, 18, 14, 50), new Buffer(10, 10));
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 10), LocalDateTime.of(2025, 8, 18, 17, 50), new Buffer(10, 10));
+		
+		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+		
+		events.add(event1);
+		events.add(event2);
+		
+		boolean result = availabilityEntry.isSlotAvailableWithEvents(slot, events);
+		
+		assertFalse(result);
+	}
+	
+	@Test
+	@DisplayName("Should return false when a slot starts during an already scheduled event, with buffer.")
+	void isSlotAvailableWithEvents_WhenStartsDuringEventWithBuffer() {
+		AvailabilityEntry availabilityEntry = new AvailabilityEntry(UUID.randomUUID(), Weekday.MONDAY, 13, 0, 18, 0);
+
+		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 14, 30), 60);
+		
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 10), LocalDateTime.of(2025, 8, 18, 14, 50), new Buffer(10, 10));
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 10), LocalDateTime.of(2025, 8, 18, 17, 50), new Buffer(10, 10));
+		
+		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+		
+		events.add(event1);
+		events.add(event2);
+		
+		boolean result = availabilityEntry.isSlotAvailableWithEvents(slot, events);
+		
+		assertFalse(result);
+	}
+	
+	@Test
+	@DisplayName("Should return false when a slot ends during an already scheduled event, with buffer.")
+	void isSlotAvailableWithEvents_WhenEndsDuringEventWithBuffer() {
+		AvailabilityEntry availabilityEntry = new AvailabilityEntry(UUID.randomUUID(), Weekday.MONDAY, 13, 0, 18, 0);
+
+		CalendarSlot slot = new CalendarSlot(UUID.randomUUID(), LocalDateTime.of(2025, 8, 18, 16, 30), 60);
+		
+		CalendarEvent event1 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 14, 10), LocalDateTime.of(2025, 8, 18, 14, 50), new Buffer(10, 10));
+		CalendarEvent event2 = new CalendarEvent(UUID.randomUUID(), Weekday.MONDAY, LocalDateTime.of(2025, 8, 18, 17, 10), LocalDateTime.of(2025, 8, 18, 17, 50), new Buffer(10, 10));
 		
 		List<CalendarEvent> events = new ArrayList<CalendarEvent>();
 		
@@ -124,19 +204,3 @@ class AvailabilityEntryTest {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

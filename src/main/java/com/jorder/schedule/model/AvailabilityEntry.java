@@ -76,13 +76,13 @@ public class AvailabilityEntry {
 		}
 		
 		for (CalendarEvent event: events) {
-			if (slot.getSlotStart().isEqual(event.getEventStart()) || slot.getSlotEnd().isEqual(event.getEventEnd())) {
+			if (slot.getSlotStart().toLocalTime().equals(event.getEventStartWithBuffer()) || slot.getSlotEnd().toLocalTime().equals(event.getEventEndWithBuffer())) {
 				return false;
 			}
 			if (
-					(isBetween(slot.getSlotStart().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					(isBetween(slot.getSlotStart().toLocalTime(), event.getEventStartWithBuffer() , event.getEventEndWithBuffer()))
 					||
-					(isBetween(slot.getSlotEnd().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					(isBetween(slot.getSlotEnd().toLocalTime(), event.getEventStartWithBuffer(), event.getEventEndWithBuffer()))
 					) {
 				return false;
 			}
