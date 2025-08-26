@@ -76,7 +76,7 @@ public class AvailabilityEntry {
 		}
 		
 		for (CalendarEvent event: events) {
-			if (slot.getSlotStart().isEqual(event.getEventStart()) || slot.getSlotEnd().isEqual(event.getEventEnd())) {
+			if (slot.getSlotStart().toLocalTime().equals(event.getEventStartWithBuffer()) || slot.getSlotEnd().toLocalTime().equals(event.getEventEndWithBuffer())) {
 				return false;
 			}
 			if (
