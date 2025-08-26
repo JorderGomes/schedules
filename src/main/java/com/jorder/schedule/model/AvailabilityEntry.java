@@ -80,9 +80,9 @@ public class AvailabilityEntry {
 				return false;
 			}
 			if (
-					(isBetween(slot.getSlotStart().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					(isBetween(slot.getSlotStart().toLocalTime(), event.getEventStartWithBuffer() , event.getEventEndWithBuffer()))
 					||
-					(isBetween(slot.getSlotEnd().toLocalTime(), event.getEventStart().toLocalTime(), event.getEventEnd().toLocalTime()))
+					(isBetween(slot.getSlotEnd().toLocalTime(), event.getEventStartWithBuffer(), event.getEventEndWithBuffer()))
 					) {
 				return false;
 			}
