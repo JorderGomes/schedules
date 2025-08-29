@@ -1,6 +1,8 @@
 package com.jorder.schedule.model;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +48,13 @@ public class AvailabilityEntry {
 	}
 
 
+	public Weekday getWeekday() {
+		return weekday;
+	}
+
+	public void setWeekday(Weekday weekday) {
+		this.weekday = weekday;
+	}
 
 	public boolean isSlotAvailable(CalendarSlot slot) {
 		int slotStartTime = (slot.getSlotStart().getHour() * 60) + slot.getSlotStart().getMinute();
@@ -76,19 +85,38 @@ public class AvailabilityEntry {
 		}
 		
 		for (CalendarEvent event: events) {
-			if (slot.getSlotStart().toLocalTime().equals(event.getEventStartWithBuffer()) || slot.getSlotEnd().toLocalTime().equals(event.getEventEndWithBuffer())) {
+			if (slot.getSlotStart().equals(event.getEventStartWithBuffer()) || slot.getSlotEnd().equals(event.getEventEndWithBuffer())) {
 				return false;
 			}
 			if (
-					(isBetween(slot.getSlotStart().toLocalTime(), event.getEventStartWithBuffer() , event.getEventEndWithBuffer()))
+					(isBetween(slot.getSlotStart(), event.getEventStartWithBuffer() , event.getEventEndWithBuffer()))
 					||
-					(isBetween(slot.getSlotEnd().toLocalTime(), event.getEventStartWithBuffer(), event.getEventEndWithBuffer()))
+					(isBetween(slot.getSlotEnd(), event.getEventStartWithBuffer(), event.getEventEndWithBuffer()))
 					) {
 				return false;
 			}
 		}
 		
 		return true;
+	}
+	
+	public List<CalendarSlot> generateAvailableSlotsForDay (LocalDate day){
+		List<CalendarSlot> availableSlots = new ArrayList<>();
+		// Obter start_time do range
+		LocalTime start_time = LocalTime.of(range.getStart().getHours(), range.getStart().getMinutes());
+		// Enquanto start_time <= end_time
+		while (start_time.isBefore(LocalTime.of(range.getEnd().getHours(), range.getEnd().getMinutes()))) {
+			// Cria um slot com start_time e duração de 30min
+			CalendarSlot slot = new CalendarSlot(null, day, start_time, 30);
+			// Verifica se o slot está disponível
+			if (isSlotAvailable(slot)) {
+				// Adiciona slot em availableSlots
+				availableSlots.add(slot);
+			}
+			// Atualiza o start_time adicionando 30 minutos
+			start_time.plusMinutes((long) 30);
+		}
+		return availableSlots;
 	}
 	
 }
