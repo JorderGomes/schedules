@@ -1,6 +1,8 @@
 package com.jorder.schedule.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+//import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -8,9 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+//import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+//import lombok.Setter;
 
 @Data
 @AllArgsConstructor
@@ -22,17 +24,20 @@ public class CalendarSlot {
 	@GeneratedValue
 	private UUID id;
 	
-	private LocalDateTime slotStart;
+	private LocalDate date;
 	
-	private LocalDateTime slotEnd;
+	private LocalTime slotStart;
+	
+	private LocalTime slotEnd;
 	
 	private int durationMinutes;
 	
 	
 	
-	public CalendarSlot(UUID id, LocalDateTime start, int durationMinutes) {
+	public CalendarSlot(UUID id, LocalDate date, LocalTime start, int durationMinutes) {
 		super();
 		this.id = id;
+		this.date = date;
 		this.slotStart = start;
 		this.slotEnd = start.plusMinutes((long) durationMinutes);
 		this.durationMinutes = durationMinutes;
@@ -48,19 +53,28 @@ public class CalendarSlot {
 		this.id = id;
 	}
 
-	public LocalDateTime getSlotStart() {
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public LocalTime getSlotStart() {
 		return slotStart;
 	}
 
-	public void setSlotStart(LocalDateTime slotStart) {
+	public void setSlotStart(LocalTime slotStart) {
 		this.slotStart = slotStart;
 	}
 
-	public LocalDateTime getSlotEnd() {
+	public LocalTime getSlotEnd() {
 		return slotEnd;
 	}
 
-	public void setSlotEnd(LocalDateTime slotEnd) {
+	public void setSlotEnd(LocalTime slotEnd) {
 		this.slotEnd = slotEnd;
 	}
 
